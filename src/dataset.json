@@ -1,0 +1,77 @@
+{
+    "init": {
+        "answers": [
+            {
+                "content": "いいえまだです。",
+                "nextId": "fast_study"
+            },
+            {
+                "content": "１〜２時間ほどしました。",
+                "nextId": "good"
+            },
+            {
+                "content": "３時間以上しました。",
+                "nextId": "very_good"
+            }
+        ],
+        "question": "今日は勉強したんか？"
+    },
+
+    "fast_study": {
+        "answers": [
+            {
+                "content": "はい。",
+                "nextId": "commit"
+            },
+            {
+                "content": "最初の質問に戻る",
+                "nextId": "init"
+            }
+        ],
+        "question": "こんな事してないで早く勉強しな〜今日のやることを投稿してな〜 勉強したら、またおいで〜"
+    },
+    "good": {
+        "answers": [
+            {
+                "content": "まだです。",
+                "nextId": "https://twitter.com/home"
+            },
+            {
+                "content": "投稿しました。",
+                "nextId": "good_job"
+            }
+        ],
+        "question": "まぁまぁ頑張ったな Twitterに投稿したか？"
+    },
+    "very_good": {
+        "answers": [
+            {
+                "content": "まだです。",
+                "nextId": "https://twitter.com/home"
+            },
+            {
+                "content": "投稿しました。",
+                "nextId": "good_job"
+            }
+        ],
+        "question": "よく頑張ったな Twitterに投稿したか？"
+    },
+    "good_job": {
+        "answers": [
+            {
+                "content": "ありがとうございます。また明日よろしくお願いします",
+                "nextId": "end"
+            }
+        ],
+        "question": "おつかれさん、また明日もがんばってな〜おやすみ〜"
+    },
+    "end": {
+        "answers": [
+            {
+                "content": "最初の質問に戻る",
+                "nextId": "init"
+            }
+        ],
+        "question": "ほーい、明日な〜"
+    }
+}
