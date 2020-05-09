@@ -1,32 +1,24 @@
-import React from 'react'
+import React,{useCallback,useState} from 'react'
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import TextImput from './TextImput'
-export default class FormDialog extends React.Component {
-    constructor(props){
-        super(props)
-        this.state = {
-            task: "",
-            desc: ""
-        }
-        this.imputTask = this.imputTask.bind(this)
-        this.imputDecs = this.imputDecs.bind(this)
-    }
-    imputTask = (event) => {
-        this.setState({task: event.target.value})
-    }
-    imputDecs = (event) => {
-        this.setState({ desc: event.target.value })
-    }
+const FormDialog = (props) => {
+    const [task,setTask] = useState("")
+    const [desc,setDesc] = useState("")
+
+    const imputTask = useCallback((event) => {
+        setTask(event.target.value)
+    },[setTask])
+
+    const imputDecs = useCallback((event) => {
+        setDesc(event.target.value)
+    },[setDesc])
 
     //問い合わせ内容を送信する処理
-    submitForm = () => {
-        const task = this.state.task
-        const desc = this.state.desc
-
+    const submitForm = () => {
         const payload = {
             text: '今日の学習目標\n' +
                 'タスク：' + task + '\n' + 
@@ -38,20 +30,16 @@ export default class FormDialog extends React.Component {
             method: 'POST',
             body: JSON.stringify(payload)
         }).then(() => {
-            alert('送信が完了しました！今日の頑張りましょう！')
-            this.setState({
-                task: "",
-                desc: ""
-            })
-            return this.props.handleClose()
+            alert('送信が完了しました！今日も頑張りましょう！')
+            setTask("")
+            setDesc("")            
+            return props.handleClose()
         })
     }
-
-    render(){
         return(
             <Dialog
-                open={this.props.open}
-                onClose={this.props.handleClose}
+                open={props.open}
+                onClose={props.handleClose}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
             >
@@ -59,22 +47,23 @@ export default class FormDialog extends React.Component {
                 <DialogContent>
                     <TextImput 
                         label = {"タスク"} multiline = {false} rows = {1}
-                        value = {this.state.task} type = {"text"} onChange = {this.imputTask}
+                        value = {task} type = {"text"} onChange = {imputTask}
                     />                    
                     <TextImput
                         label={"学習内容"} multiline={true} rows={5}
-                        value={this.state.desc} type={"text"} onChange={this.imputDecs}
+                        value={desc} type={"text"} onChange={imputDecs}
                     />
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={this.props.handleClose} color="primary">
+                    <Button onClick={props.handleClose} color="primary">
                         キャンセル
-          </Button>
-                    <Button onClick={this.submitForm} color="primary" autoFocus>
+                    </Button>
+                    <Button onClick={submitForm} color="primary" autoFocus>
                         送信する
-          </Button>
+                    </Button>
                 </DialogActions>
             </Dialog>
         )
-    }
 }
+
+export default FormDialog
